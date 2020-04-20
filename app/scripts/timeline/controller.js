@@ -256,19 +256,7 @@ angular.module('netbase')
             }
           });
       };
-      // NO Need This Function Now
 
-      // scope.downvoteForumPost = function() {
-
-      //   University.downvoteForumPost(universityId, contentId).then(function(res) {
-
-      //     if (res.data.success) {
-      //       scope.votesCount -= 1;
-      //     }
-
-      //   });
-
-      // };
     }
 
   }

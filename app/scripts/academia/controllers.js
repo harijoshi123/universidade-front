@@ -256,9 +256,9 @@ angular.module('netbase')
           else {
             mainHeight = videoContainer.style.height;
           }
-            
+
           let px = 'px';
-          
+
         //   if (titleDom.length == 1 || countOfNone == 1) {
         //       $scope.$apply(()=>{
         //         $scope.fullScreenVisible = "visible";
@@ -281,14 +281,14 @@ angular.module('netbase')
             else {
                 titleDom[0].style.position = 'relative';
             }
-                
+
             let k;
             for (k = 0; k < titleDom[0].childElementCount; k++) {
                 if (titleDom[0].children[k].tagName == 'VIDEO') {
 
                     titleDom[0].children[k].style.width = "100%";
                     titleDom[0].children[k].style.height = "100%";
-                    
+
                 }
             }
 
@@ -305,11 +305,11 @@ angular.module('netbase')
 
                     showingTitle.children[k].style.width = "100%";
                     showingTitle.children[k].style.height = "100%";
-                    
+
                 }
             }
-              
-  
+
+
             } else if (videoDom.length > 1 && videoDom.length < 5 && countOfNone != 1) {
                 for (i = 0; i < titleDom.length; i += 1) {
                     let k;
@@ -325,7 +325,7 @@ angular.module('netbase')
                     titleDom[i].style.position = 'relative';
                 }
                 if(!$scope.isFullScreen) $scope.fullScreenStatus = '';
-            } 
+            }
             else if (videoDom.length > 4 && countOfNone != 1) {
                 for (i = 0; i < titleDom.length; i += 1) {
                     let k;
@@ -384,7 +384,7 @@ angular.module('netbase')
                   titleDom[i].style.width = "100%";
                   titleDom[i].style.height = mainHeight / 2 + 'px';
               }
-          } 
+          }
           else if (videoDom.length > 2 && countOfNone != 1) {
             for (i = 0; i < titleDom.length; i += 1) {
                 let k;
@@ -454,7 +454,7 @@ angular.module('netbase')
 
         video.connect(token, room_t).then(room => {
             const localParticipant = room.localParticipant;
-            
+
             $scope.currentLocalparticipant = room.localParticipant;
             $scope.localConnected = true;
             $scope.currentVideoRoom = room;
@@ -520,11 +520,11 @@ angular.module('netbase')
                 }
                 if (res.data.data._id == $scope.administrator[0]._id) {
                     $scope.adminActive = 'admin-active';
-                } else {        
+                } else {
                     $scope.showingParticipants.push(res.data.data);
                 }
                 $scope.participants.push(res.data.data);
-                
+
                 setTimeout(() => {
                         $window.dispatchEvent(new Event("resize"));
                     },
@@ -729,7 +729,7 @@ angular.module('netbase')
             //alert("Error");
             return;
         }
-        
+
         if ($scope.shareScreenCaption == 'Share Screen') {
 
             $scope.shareScreenCaption = 'Stop Sharing';
@@ -750,10 +750,9 @@ angular.module('netbase')
                 console.log(screenTrack);
                 $scope.connectClassroom($scope.currentRoomToken, $scope.currentRoomName, screenTrack);
 
-
             });
-        }
-        else {
+        
+        } else {
             if($scope.currentShareScreen != null) $scope.currentShareScreen.stop();
             $scope.shareScreenCaption = 'Share Screen';
             $scope.connectClassroom($scope.currentRoomToken, $scope.currentRoomName);
@@ -841,13 +840,13 @@ angular.module('netbase')
             window.clipboardData.setData("Text", text);
         }
         */
-    
+
         Clipboard.copy(text);
         ngDialog.open({ template: 'partials/modals/classroom_alert_modal.html', controller: "AcademiaClassroomsAlertCtrl", className: 'ngdialog-theme-default classroom-alert-modal', data: {type: "Universidade", msg: 'Copied link to clipboard'}});
     }
 
-    
-    
+
+
 
     $scope.toggleAllControllers = function() {
       if($scope.mobileVisibleToggle == 'mobile-invisible'){
@@ -860,7 +859,7 @@ angular.module('netbase')
 
     $scope.toggleFullScreen = function() {
         $scope.isFullScreen = !$scope.isFullScreen;
-        
+
         if($scope.isFullScreen) {
             $scope.fullScreenToggle = "fa fa-compress";
             $scope.fullScreenIconPos = ' fixed';
@@ -887,7 +886,7 @@ angular.module('netbase')
 }])
 
 .controller('AcademiaClassroomsCtrl', ['$rootScope', '$scope', '$location', '$route', 'University', 'Classroom', 'Students', 'ngDialog', 'jwtHelper', '$localStorage', '$window', function($rootScope, $scope, $location, $route, University, Classroom, Students, ngDialog, jwtHelper, $localStorage, $window) {
-    
+
     let universityUrl = $route.current.params.academiaName;
 
     $scope.administrator = [];
@@ -980,17 +979,17 @@ angular.module('netbase')
     }
 
     $scope.createNewClassroom = function() {
-        ngDialog.open({ controller: 'AcademiaClassroomsCtrl', template: 'partials/modals/classroom_modal.html', className: 'ngdialog-theme-default classroom-modal' });
+        ngDialog.open({ controller: 'AcademiaClassroomsCtrl', template: 'partials/modals/classroom_modal.html', className: 'ngdialog-theme-default' });
     };
 
     $scope.confirmCreateClassroom = function() {
         let studentId;
-        
+
         let token = $localStorage.token;
         let title = $scope.addingClassroom.uniqueName ? $scope.addingClassroom.uniqueName : '';
         //let url = '/classroom/university/' + $scope.university._id + '/room/' + title;
         let url = '/classroom/university/';
-        
+
         if ($localStorage.token != undefined && $localStorage.token != null) {
             studentId = jwtHelper.decodeToken($localStorage.token)._id;
         }
@@ -1044,7 +1043,8 @@ angular.module('netbase')
 
     $scope.joinClassroom = function(classroom) {
 
-       window.open(domain + "/a/" + universityUrl + "/roomid/" + classroom.roomSID + "/" + classroom.accountSid + "/" + classroom.uniqueName + "/");
+      let text = domain + "/a/university/" + universityUrl + "/roomid/" + classroom.roomSID + "/accountid/" + classroom.accountSid + "/roomname/" + classroom.uniqueName + "/";
+      window.open(text);
 
     }
 
@@ -1057,7 +1057,7 @@ angular.module('netbase')
 
     $scope.confirmDelete = function() {
         let token = $localStorage.token;
-        
+
         console.log('here university');
         console.log($scope.university);
         let url = '/classroom/end/';
@@ -2224,6 +2224,29 @@ angular.module('netbase')
 
 /* end academia */
 
+.directive('instructorinfo', ['University', '$localStorage', '$route', 'jwtHelper', 'Students', function(University, $localStorage, $route, jwtHelper, Students) {
+    return {
+        restrict: 'EA',
+        templateUrl: '../partials/directive/instructorinfo.html',
+        replace: false,
+        scope: true,
+        link: function(scope, element, attr) {
+
+            let studentId = attr.sid;
+
+            Students.getStudentById(studentId).then(function(res) {
+
+                console.log("response student: ");
+                console.log(res);
+                scope.student = res.data.data;
+
+            });
+
+        }
+
+    }
+
+}])
 .directive('studentinfo', ['University', '$localStorage', '$route', 'jwtHelper', 'Students', function(University, $localStorage, $route, jwtHelper, Students) {
     return {
         restrict: 'EA',
@@ -2247,7 +2270,38 @@ angular.module('netbase')
     }
 
 }])
+.directive('studentinfooption', ['University', '$localStorage', '$route', 'jwtHelper', 'Students', function(University, $localStorage, $route, jwtHelper, Students) {
+    return {
+        restrict: 'EA',
+        templateUrl: '../partials/directive/studentinfooption.html',
+        replace: false,
+        scope: true,
+        link: function(scope, element, attr) {
 
+            let studentId = attr.sid;
+
+            Students.getStudentById(studentId).then(function(res) {
+
+                console.log("response student: ");
+
+                scope.student_id=studentId;
+                if(res.data.success) {
+                   console.log(res.data.success)
+                   scope.student = res.data.data;
+                } else {
+                   scope.student = {_id:studentId,"name":"test"};
+                }
+
+            });
+           //END Students.getStudentById
+
+        }
+      //END LINK
+
+    }
+    //END RETURN
+
+}])
 .directive('academiastatus', ['University', '$localStorage', '$route', 'jwtHelper', function(University, $localStorage, $route, jwtHelper) {
     return {
         restrict: 'EA',
@@ -2373,29 +2427,115 @@ angular.module('netbase')
                 scope.studentIsPremium = false;
                 scope.studentIsAdmin = false;
                 scope.studentIsTeam = false;
-          
-            Students.getStudentById(studentId).then(function(res) {
-              let data = res.data.data;
 
-              for (let i=0; i < data.universitiesSubscribed.length; i++) {
-                if (data.universitiesSubscribed[i].universityId == university._id && data.universitiesSubscribed[i].unsubscribed===false) {
-                  scope.showSubscribe = false;
+                /* chat */
+
+                scope.chatDisplay = true;
+
+                /* chat functions */
+
+                scope.chatToggle = function() {
+
+                    console.log("ae")
+
+                    if (scope.chatDisplay) {
+                        scope.chatDisplay = false;
+                    } else {
+                        scope.chatDisplay = true;
+                    }
+
                 }
-                if (data.universitiesSubscribed[i].universityId == university._id && data.universitiesSubscribed[i].unsubscribed===true) {
-                  scope.showSubscribe = true;
-                }
-              }
-            })
 
-          
-          /* check if student is a premium member */
-          for (let idx = 0; idx < university.members.length; idx++) {
+                /* */
 
-                  var member = university.members[idx];
+                attr.$observe('university', function(value) {
+                university = JSON.parse(value);
 
-                  if (studentId != undefined && member.accountId == studentId && member.privilege >= 10) {
-                    scope.studentIsPremium = true;
-                  }
+                  /* REAL TIME MODULE */
+
+                    /*
+                    var socket = io("https://educationalcommunity-realtime.herokuapp.com");
+
+                    let student = { _id: studentId };
+
+                    if (value) {
+
+                        university = JSON.parse(value);
+
+                        console.log("university get channels 1")
+
+                        console.log(university._id)
+
+                        Chat.getUniversityChannels(university._id).success(function(res) {
+
+                            console.log("chat get channels :: ")
+                            console.log(res.data)
+
+                            if (res.success) {
+
+                                scope.channels = res.data;
+
+                                const chatClient = new Twilio.Chat.Client($localStorage.tokenTwilio);
+
+                                chatClient.on('channelJoined', function(channel) {
+                                    console.log('Joined channel ' + channel.friendlyName);
+                                });
+
+                                console.log("hey")
+
+                                chatClient.getSubscribedChannels().then(function(paginator) {
+                                    console.log("paginator: ")
+                                    console.log(paginator)
+                                    for (let i = 0; i < paginator.items.length; i++) {
+                                        const channel = paginator.items[i];
+                                        console.log('Channel: ' + channel.friendlyName);
+                                    }
+                                });
+
+                            } else {
+
+                            }
+
+                        });
+                        */
+
+                        /*
+                        socket.on('connect', function(data) {
+
+                            console.log(data)
+
+                            if (studentId != undefined) {
+
+                                if (studentId.length > 0) {
+
+                                    socket.emit('universityVisit', { universityUrl: university.url, student: student });
+
+                                    socket.on('universityVisitsTodayList', function(data) {
+
+                                        scope.universityVisitsTodayList = data;
+
+                                    });
+                                    //END socket.on('universityVisitsTodayList')
+
+                                }
+                                //END if (studentId.length > 0)
+
+                            }
+                            //END studentId
+
+                        });
+                        //END socket.on('connect')
+
+                      */
+
+                      /* check if student is a premium member */
+                      for (let idx = 0; idx < university.members.length; idx++) {
+
+                          var member = university.members[idx];
+
+                          if (studentId != undefined && member.accountId == studentId && member.privilege >= 10) {
+                              scope.studentIsPremium = true;
+                          }
 
                           if (studentId != undefined && member.accountId == studentId && member.privilege >= 50) {
                               scope.studentIsTeam = true;
@@ -2470,7 +2610,6 @@ angular.module('netbase')
                     let studentIdMembersLocation = userMembersLocation(array);
 
                     if (studentIdMembersLocation != -1) {
-
 
                         console.log("array student id member location");
                         console.log(array[studentIdMembersLocation].unsubscribed)
@@ -2870,7 +3009,32 @@ angular.module('netbase')
         }
     }
 }])
+.directive('knowledgecoursecard', ['Courses','University', '$rootScope', 'Students', function(Courses,University, $rootScope, Students) {
+    return {
+        restrict: 'EA',
+        templateUrl: '../partials/directive/knowledgecoursecard.html',
+        
+        link: function(scope, element, attr) {
 
+            let universityId = attr.uid;
+
+            Courses.getKnowledgeId(universityId).success(function(res) {
+
+                console.log(res);
+
+                scope.university = res.data;
+
+            });
+
+            /*
+
+            filter: { active: true } | orderBy:'-highlight'
+
+            */
+
+        }
+    }
+}])
 .directive('timelineuniversitycard', ['University', '$rootScope', 'Students', function(University, $rootScope, Students) {
     return {
         restrict: 'E',
