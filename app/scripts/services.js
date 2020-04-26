@@ -364,7 +364,7 @@ angular.module('netbase')
 
       var baseUrl = "https://educationalcommunity-uni.herokuapp.com/university";
       //var baseUrl = "https://api.universida.de/university";
-      //var baseUrl = "http://192.168.1.7:9003/university";
+      //var baseUrl = "http://localhost:9003/university";
 
       return {
 
@@ -417,7 +417,13 @@ angular.module('netbase')
           return $localStorage.universityStorage;
 
         },
+        getallCategorybyUniversity: function() {
 
+          var url = '/owner/members/university/category';
+
+          return $http.get(baseUrl + url);
+
+        },
         create: function(data) {
 
           var url = '/';
@@ -464,6 +470,7 @@ angular.module('netbase')
           return $http.get(baseUrl + url);
 
         },
+        
         getUniversitiesByOwnerId: function(id) {
 
           var url = '/ownerid/' + id;
@@ -809,7 +816,7 @@ angular.module('netbase')
             data: {
               id: universityId,
               roomName: title,
-              privilege: 99,
+              privilege: privilege,
             }
 					}
 					$http(req).then((res) => {
@@ -905,7 +912,19 @@ angular.module('netbase')
 						}
 					});
 				})
-			}
+      },
+      getChatAccessToken: function(url) {
+        var token = $localStorage.token;
+        var req = {
+          method: 'GET',
+          url: url + 'deviceId/browser',
+          headers: {
+            'x-access-token': token,
+            'content-type': 'application/json'
+          }
+        }
+        return $http(req);
+      }
 		}
     }])
 
@@ -1272,7 +1291,12 @@ angular.module('netbase')
           return $http.get(baseUrl + url);
 
         },
+        getByPlaylist:function(id)
+       {
+          var url = "/video/playlist/" + id;
 
+          return $http.get(baseUrl + url);
+       },
         create: function(payload) {
 
           var url = '/video';
@@ -1727,7 +1751,7 @@ angular.module('netbase')
          saveQuizResult: function(payload) {
           
            var url = "/quiz/id/submit";
-
+          console.log(payload)
           return $http({
             method: 'PUT',
             url: baseUrl + url,
@@ -2121,5 +2145,39 @@ angular.module('netbase')
 
     }])
 
-
+    .factory('throttle', ['$timeout', function ($timeout) {
+      return function (delay, no_trailing, callback, debounce_mode) {
+        var timeout_id,
+        last_exec = 0;
+        
+        if (typeof no_trailing !== 'boolean') {
+          debounce_mode = callback;
+          callback = no_trailing;
+          no_trailing = undefined;
+        }
+        
+        var wrapper = function () {
+          var that = this,
+              elapsed = +new Date() - last_exec,
+              args = arguments,
+              exec = function () {
+                last_exec = +new Date();
+                callback.apply(that, args);
+              },
+              clear = function () {
+                timeout_id = undefined;
+              };
+    
+          if (debounce_mode && !timeout_id) { exec(); }
+          if (timeout_id) { $timeout.cancel(timeout_id); }
+          if (debounce_mode === undefined && elapsed > delay) {
+            exec();
+          } else if (no_trailing !== true) {
+            timeout_id = $timeout(debounce_mode ? clear : exec, debounce_mode === undefined ? delay - elapsed : delay);
+          }
+        };
+        
+        return wrapper;
+      };
+    }])
 ;
