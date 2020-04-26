@@ -1,0 +1,129 @@
+<div ng-include="'partials/headerhome.html'"></div>
+
+<div class="container-fluid container-home animated fadeIn" style="padding-bottom: 30px;">
+
+  <div class="row">
+
+    <div class="col-sm-4 col-md-3 section-menu-col">
+
+    </div>
+    <!-- -->
+
+    <div class="col-xs-12 col-sm-8 col-md-9 section-content-col">
+
+      <!--
+      <div style="cursor: pointer;" ng-click="lastpageReturn()">< Voltar</div>
+      -->
+
+      <style>
+
+        @media screen and (max-width: 768px) {
+
+          .container-home {
+            padding-top: 43px !important;
+          }
+
+        }
+
+        .wallet-card {
+          display: inline-block;
+          width: 100%;
+          height: 200px;
+          background-color: #e6e6e6;
+          border-radius: 15px;
+          max-width: 300px;
+          margin-right: 25px;
+          vertical-align: top;
+          cursor: pointer;
+        }
+
+        .section-cards {
+          -ms-overflow-style: none;
+          overflow: -moz-scrollbars-none;
+          scrollbar-width: none;
+        }
+
+        .section-cards::-webkit-scrollbar {
+          display: none;
+        }
+
+      </style>
+
+      <!-- default payment -->
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+          <ballmenu></ballmenu>
+
+          <div class="section-cards">
+
+            <div class="wallet-card" ng-click="addCard()">
+              <div class="content" style="padding-top: 70px; text-align: center; font-size: 1.3em;">
+                <i class="fas fa-plus-circle"></i></br>
+                Adicionar cartao
+              </div>
+            </div>
+            <!-- end wallet card -->
+
+            <div class="wallet-card">
+
+              <div class="content">
+                <b>{{card.brand}}</b>
+                <div>
+                  <b>Nome no cartão: {{card.name}}</b></br>
+                  <b>LAST4{{card.last4}}</b> {{card.last4}}</br>
+                  <b>Expira: {{card.exp_month}}/{{card.exp_year}}</b>
+                </div>
+              </div>
+              <!-- end content -->
+
+            </div>
+            <!-- end wallet card -->
+
+          </div>
+          <!-- end section-cards -->
+
+          <div class="section-menu-title" style="padding-left: 0px;">Minhas compras</div>
+
+          <p ng-if="orders.length == 0">Você ainda não realizou uma compra na plataforma.</p>
+
+          <div class="order" ng-repeat="order in orders">
+
+            <div class="info">
+              <div class="id">Pedido #{{order._id}}</div>
+              <div class="date"><b>Data:</b> <span am-time-ago="order.createdAt | amFromUnix | amDateFormat:'MM.DD.YYYY HH:mm:ss' "></span></div>
+              <div class="total"><b>Total:</b> R${{order.amount / 100}}</div>
+            </div>
+
+            <p>Items</p>
+
+            <div class="items">
+
+              <div class="item" ng-repeat="item in order.items">
+                <div class="top"><b class="name">{{item.name}}</b><div class="price">R$ {{item.amount / 100}}</div></div>
+                <p>Quantidade: {{item.quantity}}</p>
+              </div>
+
+            </div>
+            <!-- end items -->
+
+          </div>
+          <!-- end orders -->
+
+        </div>
+        <!-- end col-xs-12 col-sm-3 col-md-3 -->
+
+      </div>
+      <!-- end row -->
+
+    </div>
+    <!-- col-sm-9 -->
+
+  </div>
+  <!-- end row -->
+
+  <footermobile></footermobile>
+
+</div>

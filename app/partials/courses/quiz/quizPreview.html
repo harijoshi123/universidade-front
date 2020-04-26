@@ -1,0 +1,119 @@
+<div class="container">
+
+  <br><br>
+
+  <div class="panel panel-default quiz-panel quiz-box">
+    <div class="row">
+
+      <div class="col-sm-12 text-center">
+        <h2 style="margin-top: 30px">{{title}}</h2>
+      </div>
+    </div>
+
+    <div class="panel-body quiz-panel">
+      <span>Ques. {{indexQ+1}}</span>
+      <h4 class="text-uppercase">{{question.title}} {{res.ans_status}} <p ng-if="res.ans_status=='FALSE' class="text-danger">(Wrong answer)</p></h4>
+      <div class="row options-row" ng-if="question.title_type=='mcq'">
+        <div class="col-md-6" ng-repeat="q in question.qes_options">
+          <div class="quiz-options btn-info" ng-class="{test: $index == cor,test:$index+1==res.view_ans,testD:$index==res.answer-1 && res.ans_status!='true'}" >
+            <span>{{q.title}} </span>
+          </div>
+        </div>
+      </div>
+      <div class="row options-row" ng-if="question.title_type!='mcq'">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="quiz-options btn-danger" ng-class="{test: cor != 5}" >
+            <span>{{res.answer}} </span>
+          </div>
+           <div class="quiz-options btn-success" ng-class="{test: cor == 5}" >
+            <span>{{res.view_ans}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <button ng-click="showPrev()"  class="btn btn-primary pull-left label1">Prevous Question </button>
+      </div>
+      <div class="col-sm-6 text-center">
+        <span style="padding-top: 20px;">
+
+        </span>
+      </div>
+      <div class="col-sm-3 text-right">
+        <button ng-click="showNext()" n class="btn btn-success pull-right label2">Next Question <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .quiz-panel {
+    border-radius: 50px;
+    min-height: 350px;
+    width: 75%;
+    margin-left: 50px;
+    border: none;
+  }
+  .test{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+  }
+  .testD {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+  .quiz-box {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .label1 {
+    border-bottom-left-radius: 15px;
+    text-align: center;
+    color: white;
+    margin-left: 1px;
+    padding: 10px;
+    width: 130px;
+    height: 40px;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .label2 {
+    background-color: #3c6839;
+    border-bottom-right-radius: 15px;
+    text-align: center;
+    color: white;
+    margin-left: 1px;
+    padding: 10px;
+    width: 130px;
+    height: 40px;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .options-row {
+    padding: 20px;
+    margin-left: 30px;
+  }
+
+  .quiz-options {
+    padding: 20px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: large;
+    color: white;
+    cursor: pointer;
+  }
+
+  .quiz-options i {
+    color: black;
+    font-size: 25px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+</style>

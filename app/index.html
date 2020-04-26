@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -41,6 +41,12 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 
+    <style>
+      body {
+        font-size: 16px !important;
+      }
+    </style>
+
     <base href="/">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.4.7/plyr.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
@@ -62,7 +68,7 @@
     <!--<link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/style.css" crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/modal.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/timeline.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/onboarding.css" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/onboarding.css" crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/table.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/manage.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/new/video.css" crossorigin="anonymous">
@@ -79,13 +85,15 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swipejs/2.2.13/style.min.css">
 
-    <link rel="stylesheet" href="/css/ng-sortable.min.css">
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/a5hik/ng-sortable/master/dist/ng-sortable.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-sortable/1.3.8/ng-sortable.style.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-ui-swiper@2.3.8/dist/angular-ui-swiper.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
 
+    <!--<link rel="stylesheet" href="https://storage.googleapis.com/educationalcommunity/pt/css/new/onboarding.css" />-->
+    <link rel="stylesheet" href="/css/new/onboarding.css" />
     <link rel="stylesheet" href="/css/index.css" crossorigin="anonymous">
     <!--
     <link rel="stylesheet" href="/css/base.css" crossorigin="anonymous">
@@ -107,8 +115,8 @@
 
   -->
 
-
     <link rel="stylesheet" href="/css/classroom.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/classroom_main.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" crossorigin="anonymous">
 
@@ -125,7 +133,6 @@
   </head>
 
     <body ng-app="netbase" autoscroll="true">
-      <script>fbq('track', 'Lead');</script>
 
       <div ng-view="">
 
@@ -138,24 +145,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
     <!-- Angular -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-animate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.js"></script>
     <script src="/js/update-meta.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+    <script src="https://cdn.tiny.cloud/1/nu6v2gff1svxvivlhv3ehx5uo4tnn2onev0c4vkm39rtro3n/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="/js/tinymce.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/scripts/angular-socialshare.min.js"></script>
-
-    <!-- oc lazy loading -->
-    <script src="js/ocLazyLoad.min.js"></script>
 
     <script src="/scripts/apartments/controllers.js"></script>
 
     <script src="/scripts/payments/controller.js"></script>
 
     <script src="/scripts/timeline/controller.js"></script>
+    <script src="/js/clipboard_func.js" defer></script>
+
 
     <script src="/scripts/dashboard/payments/controller.js"></script>
     <script src="/scripts/dashboard/controllers.js"></script>
@@ -216,6 +224,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-sortable/1.3.8/ng-sortable.js"></script>
 
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
+    <script src='https://www.webrtc-experiment.com/ConcatenateBlobs.js'></script>
+
+
+    <script src="/js/ocLazyLoad.min.js"></script>
 
   </body>
 </html>

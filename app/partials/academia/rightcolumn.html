@@ -66,8 +66,8 @@
 
     <p style="font-size: 0.9em; padding-top: 15px; color: #7d7d7d; font-weight: bold;">AÇÕES</p>
 
-    <button class="btn bg-primary-purple" style="margin-top: 2px; height: 29px; width: unset;" ng-if="showSubscribe==true" ng-click="subscribe()">Inscrever</button>
-    <button class="btn bg-primary-purple" style="margin-top: 2px; height: 29px; width: unset;" ng-if="showSubscribe==false" ng-click="subscribe()">Desinscrever</button>
+    <button class="btn bg-primary-purple" style="margin-top: 2px; height: 29px; width: unset;" ng-hide="userSubscribed(university.members)" ng-click="subscribe()">Inscrever</button>
+    <button class="btn bg-primary-purple" style="margin-top: 2px; height: 29px; width: unset;" ng-show="userSubscribed(university.members)" ng-click="subscribe()">Desinscrever</button>
     <button class="btn bg-base" style="margin-top: 2px; height: 29px; width: unset;" ng-click="createPost(university.url)">Criar postagem</button>
 
     <div style="height: 5px"></div>
@@ -91,7 +91,7 @@
 
   </div>
 
-  <div class="academia-supportcol-info">
+  <div class="academia-supportcol-info" ng-controller="CoursesNavBarCtrl">
 
     <div class="academia-supportcol-info-title" ng-if="studentIsAdmin == true">
       administração
@@ -100,6 +100,7 @@
     <a href="/a/{{university.url}}/forum/category/create" ng-if="studentIsAdmin == true"><button class="btn bg-base" style="margin-top: 2px; height: 29px; width: unset;">Criar categoria</button></a>
     <a href="/v/create?universityId={{university._id}}" ng-if="studentIsAdmin == true"><button class="btn bg-base" style="margin-top: 2px; height: 29px; width: unset;">Criar video</button></a>
     <a href="/p/create?universityId={{university._id}}" ng-if="studentIsAdmin == true"><button class="btn bg-base" style="margin-top: 2px; height: 29px; width: unset;">Criar playlist</button></a>
+    <a href="" ng-if="studentIsAdmin == true"><button class="btn bg-base" style="margin-top: 2px; height: 29px; width: unset;" ng-click="coursesCreate(university._id)">Criar curso</button></a>
 
   </div>
 
