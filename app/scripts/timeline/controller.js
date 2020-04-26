@@ -26,29 +26,40 @@ angular.module('netbase')
   $scope.pages = 1;
 
   $scope.loading = true;
+  $scope.forumPosts = [];
 
   var studentId;
+  var universityIds = "";
 
   if ($localStorage.token != undefined && $localStorage.token != null) {
     studentId = jwtHelper.decodeToken($localStorage.token)._id;
     Students.getStudentById(studentId).then(function(res) {
       let data = res.data.data;
       $scope.user = data;
+      for (let i=0; i < data.universitiesSubscribed.length; i++) {
+        if (data.universitiesSubscribed[i].unsubscribed===false) {
+          if(universityIds==""){
+            universityIds = data.universitiesSubscribed[i].universityId;
+          }else{
+            universityIds = universityIds+","+data.universitiesSubscribed[i].universityId;
+          }
+        }
+        if(i===data.universitiesSubscribed.length-1){
+          TimelineNew.getTimelineAll(universityIds, $scope.page).success(function(res) {
+        
+            let forumPosts = res.data.docs;
+            $scope.forumPosts = forumPosts;
+            $scope.activities = forumPosts;
+            $scope.pages = res.data.pages;
+        
+            $scope.loading = false;
+        
+          });
+        }
+      }
     })
   }
-
-  $scope.forumPosts = [];
   
-  TimelineNew.getTimelineAll($scope.page).success(function(res) {
-
-    let forumPosts = res.data.docs;
-
-    $scope.activities = forumPosts;
-    $scope.pages = res.data.pages;
-
-    $scope.loading = false;
-
-  });
   //END Timeline.getTimelineByStudentId()
 
   $scope.busy = false;
