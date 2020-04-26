@@ -2850,7 +2850,7 @@ angular.module('netbase')
     }
 }])
 
-.directive('academiarightcolumn', ['University', '$localStorage', '$route', 'jwtHelper', 'ngDialog', '$location', 'Chat', function(University, $localStorage, $route, jwtHelper, ngDialog, $location, Chat) {
+.directive('academiarightcolumn', ['University', 'Students', '$localStorage', '$route', 'jwtHelper', 'ngDialog', '$location', 'Chat', function(University, Students, $localStorage, $route, jwtHelper, ngDialog, $location, Chat) {
     return {
         restrict: 'EA',
         templateUrl: '../partials/academia/rightcolumn.html',
@@ -2868,6 +2868,23 @@ angular.module('netbase')
                 scope.studentIsPremium = false;
                 scope.studentIsAdmin = false;
                 scope.studentIsTeam = false;
+                scope.showSubscribe = true;
+
+                // Handle Subscribe Functionality
+                Students.getStudentById(studentId).then(function(res) {
+        
+                    let data = res.data.data;
+        
+                    for (let i=0; i < data.universitiesSubscribed.length; i++) {
+                      if (data.universitiesSubscribed[i].universityId == university._id && data.universitiesSubscribed[i].unsubscribed===false) {
+                        scope.showSubscribe = false;
+                      }
+                      if (data.universitiesSubscribed[i].universityId == university._id && data.universitiesSubscribed[i].unsubscribed===true) {
+                        scope.showSubscribe = true;
+                      }
+                    }
+                })
+                // End Handle Subscribe Functionality
 
                 /* chat */
 
@@ -3074,15 +3091,13 @@ angular.module('netbase')
                         University.subscribeOnUniversity(university.url).then(function(res) {
 
                             if (userSubscribed(scope.university.members)) {
-
                                 let studentIdMembersLocation = userMembersLocation(scope.university.members);
 
                                 scope.university.members.splice(studentIdMembersLocation, 1);
-
+                                scope.showSubscribe = !scope.showSubscribe;
                             } else {
-
                                 scope.university.members.push({ accountId: studentId, unsubscribed: false });
-
+                                scope.showSubscribe = !scope.showSubscribe;
                             }
 
                         });
