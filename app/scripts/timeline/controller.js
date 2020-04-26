@@ -40,7 +40,7 @@ angular.module('netbase')
 
   $scope.forumPosts = [];
   
-  TimelineNew.getTimelineAll(studentId, $scope.page).success(function(res) {
+  TimelineNew.getTimelineAll($scope.page).success(function(res) {
 
     let forumPosts = res.data.docs;
     
@@ -60,15 +60,25 @@ angular.module('netbase')
 
     if ($scope.page <= $scope.pages) {
 
-      Timeline.getTimelineByStudentId(studentId, $scope.page).success(function(res) {
+      TimelineNew.getTimelineAll($scope.page).success(function(res) {
 
         let forumPosts = res.data.docs;
-
-        $scope.forumPosts = $scope.forumPosts.concat(forumPosts);
-
+        
+        $scope.activities = forumPosts;
+        $scope.pages = res.data.pages;
         $scope.busy = false;
-
+    
       });
+
+      // Timeline.getTimelineByStudentId(studentId, $scope.page).success(function(res) {
+
+      //   let forumPosts = res.data.docs;
+
+      //   $scope.forumPosts = $scope.forumPosts.concat(forumPosts);
+
+      //   $scope.busy = false;
+
+      // });
       //END Timeline
     }
 

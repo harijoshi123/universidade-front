@@ -5,15 +5,15 @@ angular.module('netbase')
   .factory('TimelineNew', ['$http', '$localStorage', function($http, $localStorage) {
 
     //var baseUrl = "https://api.universida.de/search";
-    //var baseUrl = "https://educationalcommunity-uni.herokuapp.com";
+    var baseUrl = "https://educationalcommunity-timeline.herokuapp.com";
     // var baseUrl = "http://api.universida.de/university"
-    var baseUrl = "https://timeline-backend-api.herokuapp.com"
+    // var baseUrl = "https://timeline-backend-api.herokuapp.com"
 
     return {
 
-      getTimelineAll: function(studentId, page) {
+      getTimelineAll: function(page) {
 
-        var url = '/timeline';
+        var url = '/timeline?page='+page;
         console.log($localStorage.token)
 
         return $http({
