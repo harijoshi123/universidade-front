@@ -11,9 +11,9 @@ angular.module('netbase')
 
     return {
 
-      getTimelineAll: function(page) {
+      getTimelineAll: function(universityIds, page) {
 
-        var url = '/timeline?page='+page;
+        var url = '/timeline?universityIds='+universityIds+'&page='+page;
         console.log($localStorage.token)
 
         return $http({

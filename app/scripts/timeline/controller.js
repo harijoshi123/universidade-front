@@ -72,10 +72,10 @@ angular.module('netbase')
 
     if ($scope.page <= $scope.pages) {
 
-      TimelineNew.getTimelineAll($scope.page).success(function(res) {
+      TimelineNew.getTimelineAll(universityIds, $scope.page).success(function(res) {
 
         let forumPosts = res.data.docs;
-        
+        $scope.forumPosts = forumPosts;
         $scope.activities = forumPosts;
         $scope.pages = res.data.pages;
         $scope.busy = false;
